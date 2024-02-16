@@ -1,20 +1,29 @@
 <template>
     <div class="register">
-        <a-space direction="vertical">
-            <a-input v-model:value="value" placeholder="Email" />
-            <a-input placeholder="Password" />
 
-            <a-select ref="select" v-model:value="value1" style="width: 120px" @change="handleChange">
-                <a-select-option value="jack">Jack</a-select-option>
-                <a-select-option value="lucy">Lucy</a-select-option>
-                <a-select-option value="disabled" disabled>Disabled</a-select-option>
-                <a-select-option value="Yiminghe">yiminghe</a-select-option>
-            </a-select>
-            <a-form-item>
-                <a-button type="primary" html-type="submit" value="large" class="blue-register-button">Register</a-button>
-            </a-form-item>
 
-        </a-space>
+        <a-row>
+            <a-col :span="8"></a-col>
+            <a-col :span="8">
+                <a-space direction="vertical" style="width: 100%">
+                    <h3>Registration Form</h3>
+                    <a-input v-model:value="value" placeholder="Email" size="large" />
+                    <a-input placeholder="Password" size="large" />
+
+                    <a-select ref="select" v-model:value="value1" style="width: 200px" size="large">
+                        <a-select-option value="chef">Chef</a-select-option>
+                        <a-select-option value="foodie">Foodie</a-select-option>
+                    </a-select>
+                    <a-form-item>
+                        <a-button type="primary" html-type="submit" value="large" size="large"
+                            class="blue-register-button">Register</a-button>
+                    </a-form-item>
+
+                </a-space>
+            </a-col>
+            <a-col :span="8"></a-col>
+        </a-row>
+
 
     </div>
 </template>
@@ -22,14 +31,7 @@
 
 
 import { defineComponent, watch, ref } from 'vue';
-const value = ref('');
-const value1 = ref('');
-watch(value, () => {
-    console.log(value.value);
-});
-watch(value1, () => {
-    console.log(value1.value);
-});
+
 export default defineComponent({
     setup() {
         const options1 = ref([

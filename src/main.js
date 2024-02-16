@@ -5,7 +5,7 @@ import store from './store'
 import "ant-design-vue/dist/reset.css";
 import App from './App.vue'
 import { DatePicker } from 'ant-design-vue';
-import { Select, ConfigProvider, Button, Tag, Menu, Dropdown, Avatar, Spin, Result, Form, Tabs, Input, Checkbox, Row, Col, Modal, Alert, Divider, Upload, PageHeader, Progress } from 'ant-design-vue';
+import { Select, ConfigProvider, Button, Tag, Menu, Dropdown, Avatar, Spin, Result, Space, Form, Tabs, Input, Checkbox, Row, Col, Modal, Alert, Divider, Upload, PageHeader, Progress } from 'ant-design-vue';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 //import store from '@/store'
@@ -33,6 +33,7 @@ app.use(Form)
 app.use(Tabs)
 app.use(Input)
 app.use(Checkbox)
+app.use(Space)
 //app.use(CheckboxGroup)
 app.use(Row)
 app.use(Col)
