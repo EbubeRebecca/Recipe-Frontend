@@ -6,12 +6,19 @@
                 <a-space direction="vertical" style="width: 100%">
 
                     <h3>Login Form</h3>
-                    <a-input v-model="email" placeholder="Email" size="large" />
-                    <a-input v-model="password" autofocus placeholder="Password" type="password" size="large" />
-                    <a-form-item>
-                        <a-button type="primary" html-type="submit" value="large" size="large"
-                            class="blue-register-button">Register</a-button>
-                    </a-form-item>
+                    <a-form layout="vertical">
+                        <a-form-item ref="email" label="Email" name="email">
+                            <a-input v-model="email" placeholder="Email" size="large" />
+
+                        </a-form-item>
+                        <a-form-item ref="password" label="Password" name="password">
+                            <a-input v-model="password" autofocus placeholder="Password" type="password" size="large" />
+
+                        </a-form-item> <a-form-item>
+                            <a-button type="primary" html-type="submit" value="large" size="large"
+                                class="blue-register-button">Login</a-button>
+                        </a-form-item>
+                    </a-form>
 
 
                 </a-space>

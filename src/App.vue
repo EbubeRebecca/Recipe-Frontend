@@ -4,21 +4,24 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <header>
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-        <div class="wrapper">
-
-
-            <nav>
-                <RouterLink to="/">Home</RouterLink>
-                <RouterLink to="/about">About</RouterLink>
-                <RouterLink to="/login">Login</RouterLink>
-                <RouterLink to="/register">Register</RouterLink>
-            </nav>
-        </div>
-    </header>
+    <Header v-if="has_header"></Header>
 
     <RouterView />
 </template>
 
+<script>
+import Header from "./components/Header.vue";
+export default {
+    name: 'App',
+    components: {
+        Header
+
+    },
+    computed: {
+        has_header: function () {
+            let has_header_val = this.$route.meta.has_header;
+            return has_header_val
+        }
+    }
+}
+</script>

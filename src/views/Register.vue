@@ -7,18 +7,27 @@
             <a-col :span="8">
                 <a-space direction="vertical" style="width: 100%">
                     <h3>Registration Form</h3>
-                    <a-input v-model:value="value" placeholder="Email" size="large" />
-                    <a-input placeholder="Password" size="large" />
+                    <a-form layout="vertical">
 
-                    <a-select ref="select" v-model:value="value1" style="width: 200px" size="large">
-                        <a-select-option value="chef">Chef</a-select-option>
-                        <a-select-option value="foodie">Foodie</a-select-option>
-                    </a-select>
-                    <a-form-item>
-                        <a-button type="primary" html-type="submit" value="large" size="large"
-                            class="blue-register-button">Register</a-button>
-                    </a-form-item>
+                        <a-form-item ref="email" label="Email" name="email">
+                            <a-input v-model:value="value" placeholder="Email" size="large" />
+                        </a-form-item>
 
+                        <a-form-item ref="password" label="Password" name="password">
+                            <a-input placeholder="Password" size="large" />
+                        </a-form-item>
+                        <a-form-item ref="user_role" label="User Role" name="user_role">
+
+                            <a-select ref="select" v-model:value="value1" style="width: 200px" size="large">
+                                <a-select-option value="chef">Chef</a-select-option>
+                                <a-select-option value="foodie">Foodie</a-select-option>
+                            </a-select>
+                        </a-form-item>
+                        <a-form-item>
+                            <a-button type="primary" html-type="submit" value="large" size="large"
+                                class="blue-register-button">Register</a-button>
+                        </a-form-item>
+                    </a-form>
                 </a-space>
             </a-col>
             <a-col :span="8"></a-col>
@@ -36,8 +45,8 @@ export default defineComponent({
     setup() {
         const options1 = ref([
             {
-                value: 'jack',
-                label: 'Jack',
+                value: 'Chef',
+                label: 'Chef',
             },
             {
                 value: 'password',

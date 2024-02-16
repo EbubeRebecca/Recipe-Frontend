@@ -7,7 +7,12 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: HomeView
+            component: HomeView,
+            meta: {
+                has_header: true,
+                requiresAuth: false,
+                title: 'Hompeage'
+            }
         },
         {
             path: '/about',
@@ -25,13 +30,34 @@ const router = createRouter({
         {
             path: '/login',
             name: 'login',
-            component: () => import('../views/Login.vue')
+            component: () => import('../views/Login.vue'),
+            meta: {
+                has_header: false,
+                requiresAuth: false,
+                title: 'Login'
+            }
         },
         {
             path: '/register',
             name: 'register',
-            component: () => import('../views/Register.vue')
-        }
+            component: () => import('../views/Register.vue'),
+            meta: {
+                has_header: false,
+                requiresAuth: false,
+                title: 'Register'
+            }
+        },
+        {
+            path: '/recipe/:id',
+            name: 'viewrecipe',
+            component: () => import('../views/RecipeDetail.vue'),
+            meta: {
+                has_header: true,
+                requiresAuth: false,
+                title: 'View Recipe'
+            }
+
+        },
     ]
 })
 

@@ -8,6 +8,7 @@ import { DatePicker } from 'ant-design-vue';
 import { Select, ConfigProvider, Button, Tag, Menu, Dropdown, Avatar, Spin, Result, Space, Form, Tabs, Input, Checkbox, Row, Col, Modal, Alert, Divider, Upload, PageHeader, Progress } from 'ant-design-vue';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import axios from 'axios'
 //import store from '@/store'
 const app = createApp(App)
 app.config.devtools = true
