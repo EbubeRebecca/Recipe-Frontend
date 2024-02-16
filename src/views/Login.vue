@@ -1,23 +1,51 @@
 <template>
     <div class="login">
         <a-space direction="vertical">
-            <a-input v-model:value="value" placeholder="Email" />
-            <a-input v-model:value.lazy="value1" autofocus placeholder="Password" />
-            <a-form-item>
-                <a-button type="primary" html-type="submit" value="large" class="blue-register-button">Login</a-button>
-            </a-form-item>
+            <a-input v-model="email" placeholder="Email" />
+            <a-input v-model="password" autofocus placeholder="Password"  type="password"/>
+           
         </a-space>
     </div>
 </template>
-<script setup>
-import { watch, ref } from 'vue';
-const value = ref('');
-const value1 = ref('');
-watch(value, () => {
-    console.log(value.value);
-});
-watch(value1, () => {
-    console.log(value1.value);
-});
+<script >
+
+export default{
+    name:'Login',
+    components: {
+
+},
+data(){
+    return {
+        email : "",
+        password : "",
+          submitted:false,
+  processing:false,
+        errors:[]
+    }
+},
+    methods : {
+        handleSubmit(e){
+            e.preventDefault()
+
+            if (this.password.length > 0 && this.username.length > 0){
+                this.processing=true;
+                this.submitted=true;
+                let formData = { username:this.email, password:this.password};
+
+                this.$store.dispatch('login', formData)
+                    .then(() => this.$router.push('/'))
+                    .catch(() => {this.errors.push("Incorrect username or password");this.processing=false;
+                        this.submitted=false;})
+            }
+            else{
+                this.username = ''
+                this.password = ''
+            }
+
+
+        }
+
+    }
+}
 </script>
   
