@@ -9,7 +9,7 @@ import { Select, ConfigProvider, Button, Tag, Menu, Dropdown, Avatar, Spin, Resu
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import axios from 'axios'
-//import store from '@/store'
+
 const app = createApp(App)
 app.config.devtools = true
 app.use(router)

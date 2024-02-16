@@ -15,10 +15,15 @@ const store = createStore({
             commit('auth_request')
 
             axios({ url: 'api/auth/login', data: user_, method: 'POST' })
-                .then(resp => {
-                    if (resp.data.success === true) {
-                        const token = resp.data.access_token
-                        const user = JSON.parse(JSON.stringify(resp.data.user))
+                .then(res => {
+
+                    if (res.data.success === true) {
+                        console.log(res.data)
+                        let datum = res.data;
+
+                        const token = datum.data.access_token
+                        const user = JSON.parse(JSON.stringify(datum.data.user))
+
                         localStorage.setItem('user', user)
 
                         localStorage.setItem('token', token)
@@ -26,9 +31,14 @@ const store = createStore({
 
 
                         axios.defaults.headers.common['Authorization'] = token
+                        this.state.user = datum.data.user
+                        this.state.status = "success"
+                        this.state.user_type = "regular"
 
-                        commit('auth_success', token, user)
-                        resolve(resp)
+                        //commit('auth_success', token, datum.data.user, 'regular')
+                        //resolve(res)
+
+
                     } else {
                         commit('auth_error')
                     }
@@ -39,11 +49,18 @@ const store = createStore({
                     commit('auth_error')
                     localStorage.removeItem('token')
 
-                    reject(err)
+                    //   reject(err)
                 })
 
 
         },
+        logout(context) {
+            localStorage.removeItem('user')
+            localStorage.removeItem('token')
+            localStorage.removeItem('access_token')
+            context.commit('logout');
+        }
+
     },
     mutations: {
         auth_request(state) {
@@ -51,7 +68,7 @@ const store = createStore({
         },
         auth_success(state, token, user, user_type) {
             state.status = 'success'
-            state.token = token
+            //state.token = token
             state.user = user
             state.user_type = user_type
 

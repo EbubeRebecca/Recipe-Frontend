@@ -58,6 +58,18 @@ const router = createRouter({
             }
 
         },
+
+        {
+            path: '/recipes/create',
+            name: 'createrecipe',
+            component: () => import('../views/CreateRecipeView.vue'),
+            meta: {
+                has_header: true,
+                requiresAuth: true,
+                title: 'New Recipe'
+            }
+
+        },
     ]
 })
 

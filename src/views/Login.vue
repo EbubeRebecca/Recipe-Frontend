@@ -8,15 +8,16 @@
                     <h3>Login Form</h3>
                     <a-form layout="vertical">
                         <a-form-item ref="email" label="Email" name="email">
-                            <a-input v-model="email" placeholder="Email" size="large" />
+                            <a-input v-model:value="email" placeholder="Email" size="large" />
 
                         </a-form-item>
                         <a-form-item ref="password" label="Password" name="password">
-                            <a-input v-model="password" autofocus placeholder="Password" type="password" size="large" />
+                            <a-input v-model:value="password" autofocus placeholder="Password" type="password"
+                                size="large" />
 
                         </a-form-item> <a-form-item>
                             <a-button type="primary" html-type="submit" value="large" size="large"
-                                class="blue-register-button">Login</a-button>
+                                class="blue-register-button" v-on:click="handleSubmit">Login</a-button>
                         </a-form-item>
                     </a-form>
 
@@ -47,10 +48,10 @@ export default {
         handleSubmit(e) {
             e.preventDefault()
 
-            if (this.password.length > 0 && this.username.length > 0) {
+            if (this.password.length > 0 && this.email.length > 0) {
                 this.processing = true;
                 this.submitted = true;
-                let formData = { username: this.email, password: this.password };
+                let formData = { email: this.email, password: this.password };
 
                 this.$store.dispatch('login', formData)
                     .then(() => this.$router.push('/'))

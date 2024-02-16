@@ -10,6 +10,7 @@
                 <RouterLink to="/about">About</RouterLink>
                 <RouterLink to="/login">Login</RouterLink>
                 <RouterLink to="/register">Register</RouterLink>
+                <p v-on:click="logout">Logout</p>
             </nav>
         </div>
     </header>
@@ -21,5 +22,13 @@ import { RouterLink, RouterView } from 'vue-router'
 
 export default {
     name: 'Header',
+    methods: {
+        logout: function () {
+            this.$store.dispatch('logout')
+                .then(() => {
+                    this.$router.push('/login')
+                })
+        },
+    }
 }
 </script>
