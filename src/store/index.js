@@ -18,14 +18,14 @@ const store = createStore({
                 axios({ url: '/api/auth/login', data: user_, method: 'POST' })
                     .then(resp => {
                         if (resp.data.success === true) {
-                            //let datum = resp.data;
+                            console.log(resp.data.data.user)
                             const token = resp.data.data.access_token
-                            // const refresh_token = resp.data.data.refresh_token
-                            //const messages = resp.data.messages
+
                             const user = JSON.parse(JSON.stringify(resp.data.data.user))
                             this.state.token = token
+                            this.state.user = JSON.parse(JSON.stringify(resp.data.data.user))
+                            this.state.user_type = resp.data.data.user["user_type"]
                             localStorage.setItem('user', user)
-
                             localStorage.setItem('token', token)
                             localStorage.setItem('access_token', token)
                             // localStorage.setItem('refresh_token', refresh_token)
@@ -110,8 +110,8 @@ const store = createStore({
         auth_success(state, token, user, user_type) {
             state.status = 'success'
             //state.token = token
-            state.user = user
-            state.user_type = user_type
+            // state.user = user
+            // state.user_type = user_type
 
         },
         auth_error(state) {

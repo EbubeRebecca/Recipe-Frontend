@@ -8,8 +8,8 @@
             <nav>
                 <RouterLink to="/">Home</RouterLink>
                 <RouterLink to="/about">About</RouterLink>
-                <RouterLink to="/login">Login</RouterLink>
-                <RouterLink to="/register">Register</RouterLink>
+                <RouterLink to="/login" v-if="!isLoggedIn">Login</RouterLink>
+                <RouterLink to="/register" v-if="!isLoggedIn">Register</RouterLink>
                 <p v-on:click="logout" v-if="isLoggedIn">Logout</p>
             </nav>
         </div>

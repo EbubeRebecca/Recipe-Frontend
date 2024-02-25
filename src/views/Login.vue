@@ -37,6 +37,7 @@
 </template>
 <script >
 import router from '../router'
+import store from '../store'
 export default {
     name: 'Login',
     components: {
@@ -77,6 +78,11 @@ export default {
 
         }
 
+    },
+    created: () => {
+        if (store.getters.isLoggedIn) {
+            return router.push('/');
+        }
     }
 }
 </script>
