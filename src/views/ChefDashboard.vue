@@ -1,6 +1,7 @@
 <template>
     <div>
-
+        <p>Chef Dashboard</p>
+        <p>Add Recipe</p>
     </div>
 </template>
 

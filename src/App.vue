@@ -4,23 +4,29 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <Header v-if="has_header"></Header>
-
     <RouterView />
 </template>
 
 <script>
 import Header from "./components/Header.vue";
+import ChefDashboard from "./views/ChefDashboard.vue";
+
+import GuestHomepage from "./views/GuestHomepage.vue";
 export default {
     name: 'App',
     components: {
-        Header
+        Header,
+        ChefDashboard,
+        GuestHomepage
 
     },
     computed: {
         has_header: function () {
             let has_header_val = this.$route.meta.has_header;
             return has_header_val
+        },
+        isLoggedIn: function () {
+            return this.$store.getters.isLoggedIn;
         }
     }
 }
