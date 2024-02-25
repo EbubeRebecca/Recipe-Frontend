@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 import { createStore } from 'vuex'
-
+import router from '../router'
 const store = createStore({
     state: {
         status: '',
@@ -11,13 +11,52 @@ const store = createStore({
         user_type: ''
     },
     actions: {
-        async login({ commit }, user_) {
+        login({ commit }, user_) {
+            return new Promise((resolve, reject) => {
+                commit('auth_request')
+
+                axios({ url: '/api/auth/login', data: user_, method: 'POST' })
+                    .then(resp => {
+                        if (resp.data.success === true) {
+                            //let datum = resp.data;
+                            const token = resp.data.data.access_token
+                            // const refresh_token = resp.data.data.refresh_token
+                            //const messages = resp.data.messages
+                            const user = JSON.parse(JSON.stringify(resp.data.data.user))
+                            this.state.token = token
+                            localStorage.setItem('user', user)
+
+                            localStorage.setItem('token', token)
+                            localStorage.setItem('access_token', token)
+                            // localStorage.setItem('refresh_token', refresh_token)
+
+                            axios.defaults.headers.common['Authorization'] = token
+
+                            commit('auth_success', token, user)
+                            resolve(resp)
+                        } else {
+                            commit('auth_error')
+                        }
+
+
+                    })
+                    .catch(err => {
+                        commit('auth_error')
+                        localStorage.removeItem('token')
+
+                        reject(err)
+                    })
+
+            })
+        },
+        async login1({ commit }, user_) {
+            let that = this;
             commit('auth_request')
 
-            axios({ url: 'api/auth/login', data: user_, method: 'POST' })
+            await axios({ url: 'api/auth/login', data: user_, method: 'POST' })
                 .then(res => {
 
-                    if (res.data.success === true) {
+                    if (res.data.success) {
                         console.log(res.data)
                         let datum = res.data;
 
@@ -34,6 +73,8 @@ const store = createStore({
                         this.state.user = datum.data.user
                         this.state.status = "success"
                         this.state.user_type = "regular"
+
+                        //this.$router.push('/');
 
                         //commit('auth_success', token, datum.data.user, 'regular')
                         //resolve(res)

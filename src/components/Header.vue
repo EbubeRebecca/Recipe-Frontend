@@ -10,7 +10,7 @@
                 <RouterLink to="/about">About</RouterLink>
                 <RouterLink to="/login">Login</RouterLink>
                 <RouterLink to="/register">Register</RouterLink>
-                <p v-on:click="logout">Logout</p>
+                <p v-on:click="logout" v-if="isLoggedIn">Logout</p>
             </nav>
         </div>
     </header>
@@ -29,6 +29,11 @@ export default {
                     this.$router.push('/login')
                 })
         },
+    },
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn;
+        }
     }
 }
 </script>

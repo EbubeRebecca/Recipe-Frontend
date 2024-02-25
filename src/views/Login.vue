@@ -6,6 +6,13 @@
                 <a-space direction="vertical" style="width: 100%">
 
                     <h3>Login Form</h3>
+
+                    <div v-if="errors">
+                        <div class="alert alert-primary" role="alert" v-for="error in errors" v-bind:key="error.id">
+                            {{ error }}
+                        </div>
+                    </div>
+
                     <a-form layout="vertical">
                         <a-form-item ref="email" label="Email" name="email">
                             <a-input v-model:value="email" placeholder="Email" size="large" />
@@ -29,7 +36,7 @@
     </div>
 </template>
 <script >
-
+import router from '../router'
 export default {
     name: 'Login',
     components: {
@@ -48,6 +55,8 @@ export default {
         handleSubmit(e) {
             e.preventDefault()
 
+
+
             if (this.password.length > 0 && this.email.length > 0) {
                 this.processing = true;
                 this.submitted = true;
@@ -56,7 +65,7 @@ export default {
                 this.$store.dispatch('login', formData)
                     .then(() => this.$router.push('/'))
                     .catch(() => {
-                        this.errors.push("Incorrect username or password"); this.processing = false;
+                        this.errors.push("Incorrect email or password"); this.processing = false;
                         this.submitted = false;
                     })
             }
