@@ -18,7 +18,7 @@ html {
 }
 
 .hompage-hero {
-    padding-top: 100px;
+    padding-top: 80px;
 }
 
 .muted-text {
@@ -30,7 +30,7 @@ html {
 }
 
 
-.container {
+.vue-container {
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -39,62 +39,62 @@ html {
 }
 
 @media (min-width: 476px) {
-    .container {
+    .vue-container {
         padding-right: 15px;
         padding-left: 15px
     }
 }
 
 @media (min-width: 768px) {
-    .container {
+    .vue-container {
         padding-right: 15px;
         padding-left: 15px
     }
 }
 
 @media (min-width: 992px) {
-    .container {
+    .vue-container {
         padding-right: 15px;
         padding-left: 15px
     }
 }
 
 @media (min-width: 1200px) {
-    .container {
+    .vue-container {
         padding-right: 15px;
         padding-left: 15px
     }
 }
 
 @media (min-width: 476px) {
-    .container {
+    .vue-container {
         width: 100%
     }
 }
 
 @media (min-width: 768px) {
-    .container {
+    .vue-container {
         width: 720px;
         max-width: 100%
     }
 }
 
 @media (min-width: 992px) {
-    .container {
+    .vue-container {
         width: 960px;
         max-width: 100%
     }
 }
 
 @media (min-width: 1200px) {
-    .container {
+    .vue-container {
         width: 1140px;
         max-width: 100%
     }
 }
 
 @media (min-width: 1400px) {
-    .container {
+    .vue-container {
         width: 1340px;
         max-width: 100%
     }
