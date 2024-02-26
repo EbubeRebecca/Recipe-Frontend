@@ -17,6 +17,10 @@ html {
 
 }
 
+.home-nav-item a {
+    color: #898986 !important;
+}
+
 .hompage-hero {
     padding-top: 80px;
 }

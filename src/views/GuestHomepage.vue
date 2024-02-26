@@ -8,10 +8,11 @@
                     <span class="fs-4">Recipes</span>
                 </a>
 
-                <ul class="nav ">
-                    <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-                    <li class="nav-item"> <router-link to="login" class="nav-link">Login</router-link></li>
-                    <li class="nav-item"> <router-link to="register" class="nav-link">Register</router-link></li>
+                <ul class="nav">
+                    <li class="nav-item home-nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+                    <li class="nav-item home-nav-item"> <router-link to="login" class="nav-link">Login</router-link></li>
+                    <li class="nav-item home-nav-item"> <router-link to="register" class="nav-link">Register</router-link>
+                    </li>
 
                 </ul>
             </header>
@@ -29,9 +30,9 @@
                         <h2 class="homepage-h2">Share</h2>
                         <h2 class="homepage-h2 "><span class="root-orange">Recipes</span> with</h2>
                         <h2 class="homepage-h2">Everyone</h2>
-                        <p class="muted-text">Share recipes with recipe seekers.</p>
-                        <h3>Join as a Chef or Recipe Seeker</h3>
-                        <p>Register and login</p>
+                        <p class="muted-text">Share recipes with recipe seekers.<br /> Join as a Chef or Recipe Seeker</p>
+
+
                         <router-link to="register"><a-button type="primary" shape="round" html-type="submit" value="large"
                                 size="large" class="blue-register-button"
                                 :style="{ backgroundColor: '#ff800b' }">Register</a-button></router-link>

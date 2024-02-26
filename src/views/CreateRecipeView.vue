@@ -11,30 +11,24 @@
                     <a-form layout="vertical">
 
 
-                        <a-form-item ref="name" label="Full name" name="name">
+                        <a-form-item ref="name" label="Title" name="name">
                             <a-input placeholder="Recipe name" size="large" v-model:value="name" />
                         </a-form-item>
 
-                        <a-form-item ref="email" label="Email" name="email">
-                            <a-input placeholder="Email" size="large" v-model:value="email" />
+
+
+
+                        <a-form-item ref="name" label="Description" name="description">
+                            <textarea></textarea>
                         </a-form-item>
 
-                        <a-form-item ref="password" label="Password" name="password">
-                            <a-input placeholder="Password" size="large" type="password" v-model:value="password" />
+                        <a-form-item ref="name" label="Category" name="Category">
+
+                            <select name="category">
+                                <option v-for="category in categories" :value=category.id>{{ category.title }}</option>
+
+                            </select>
                         </a-form-item>
-
-
-
-                        <a-form-item label="User role" name="user_role">
-                            <a-radio-group name="radioGroup" v-model:value="user_role">
-                                <a-radio value="chef">Chef</a-radio>
-                                <a-radio value="recipe_seeker">Recipe Seeker</a-radio>
-
-                            </a-radio-group>
-                        </a-form-item>
-
-                        {% for category in categories %}
-                        {{ category }}
 
                         <a-form-item>
                             <a-button type="primary" html-type="submit" value="large" size="large"
@@ -57,33 +51,30 @@
 import axios from 'axios';
 import router from '../router'
 import store from '../store'
-import { defineComponent, ref } from 'vue';
-export default defineComponent({
+export default {
     data() {
         return {
             user_role: '',
             name: '',
             email: '',
             password: '',
-            categories: []
+            categories: [],
+
         }
     },
-    setup() {
 
-        return {
-
-        };
-    },
-    created: () => {
+    created: function () {
         if (store.getters.user_type != 'chef') {
             //You can't perform this action
             router.push('/');
-        }
+        } let self = this;
 
-        axios.get('api/category').then(res => {
-            this.categories = res.data.data.categories
+        axios.get('/api/category').then(res => {
+
+
+            self.categories = res.data.category.data
 
         })
     }
-});
+}
 </script>

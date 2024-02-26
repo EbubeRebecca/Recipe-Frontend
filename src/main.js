@@ -57,7 +57,7 @@ app.use(Radio)
 app.use(RadioGroup)
 
 
-
+/*
 axios.interceptors.request.use(
     config => {
         const token = localStorage.getItem("token");
@@ -70,4 +70,6 @@ axios.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+*/
 app.mount('#app')

@@ -1,6 +1,21 @@
 <template>
     <div class="register">
+        <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 ">
+                <a href="/"
+                    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
 
+                    <span class="fs-4">Recipes</span>
+                </a>
+
+                <ul class="nav ">
+                    <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+                    <li class="nav-item"> <router-link to="login" class="nav-link">Login</router-link></li>
+                    <li class="nav-item"> <router-link to="register" class="nav-link">Register</router-link></li>
+
+                </ul>
+            </header>
+        </div>
 
         <a-row>
             <a-col :span="8"></a-col>
@@ -35,7 +50,8 @@
 
                         <a-form-item>
                             <a-button type="primary" html-type="submit" value="large" size="large"
-                                class="blue-register-button" :style="{ backgroundColor: '#ff800b' }">Register</a-button>
+                                class="blue-register-button" :style="{ backgroundColor: '#ff800b' }"
+                                v-on:click="handleSubmit">Register</a-button>
                         </a-form-item>
 
                     </a-form>
@@ -52,13 +68,16 @@
 </template>
 <script>
 import { defineComponent, ref } from 'vue';
+import router from '../router'
+import store from '../store'
 export default defineComponent({
     data() {
         return {
             user_role: '',
             name: '',
             email: '',
-            password: ''
+            password: '',
+            errors: []
         }
     },
     setup() {
@@ -67,5 +86,37 @@ export default defineComponent({
 
         };
     },
+    methods: {
+        handleSubmit(e) {
+            e.preventDefault()
+
+
+
+            if (this.password.length > 0 && this.email.length > 0 && this.user_role.length > 0 && this.name.length > 0) {
+                this.processing = true;
+                this.submitted = true;
+                let formData = { email: this.email, password: this.password, password_confirmation: this.password, user_type: this.user_role, name: this.name };
+
+                this.$store.dispatch('register', formData)
+                    .then(() => router.push('/login'))
+                    .catch(() => {
+                        this.errors.push("An error occured during registration"); this.processing = false;
+                        this.submitted = false;
+                    })
+            }
+            else {
+                this.username = ''
+                this.password = ''
+            }
+
+
+        }
+
+    },
+    created: () => {
+        if (store.getters.isLoggedIn) {
+            return router.push('/');
+        }
+    }
 });
 </script>
