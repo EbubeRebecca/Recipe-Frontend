@@ -126,6 +126,7 @@ const store = createStore({
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+        user_type: state => state.user_type
 
 
     }

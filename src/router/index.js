@@ -9,9 +9,9 @@ const router = createRouter({
             name: 'home',
             component: HomeView,
             meta: {
-                has_header: true,
+                has_header: false,
                 requiresAuth: false,
-                title: 'Hompeage'
+                title: 'Homepage'
             }
         },
         {

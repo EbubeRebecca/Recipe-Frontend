@@ -1,13 +1,89 @@
-<template></template>
-<script>
+<template>
+    <div class="register">
 
-export default {
-    name: 'CreateRecipe',
-    components: {},
+
+        <a-row>
+            <a-col :span="8"></a-col>
+            <a-col :span="8">
+                <a-space direction="vertical" style="width: 100%">
+
+                    <h3>Add new recipe</h3>
+                    <a-form layout="vertical">
+
+
+                        <a-form-item ref="name" label="Full name" name="name">
+                            <a-input placeholder="Recipe name" size="large" v-model:value="name" />
+                        </a-form-item>
+
+                        <a-form-item ref="email" label="Email" name="email">
+                            <a-input placeholder="Email" size="large" v-model:value="email" />
+                        </a-form-item>
+
+                        <a-form-item ref="password" label="Password" name="password">
+                            <a-input placeholder="Password" size="large" type="password" v-model:value="password" />
+                        </a-form-item>
+
+
+
+                        <a-form-item label="User role" name="user_role">
+                            <a-radio-group name="radioGroup" v-model:value="user_role">
+                                <a-radio value="chef">Chef</a-radio>
+                                <a-radio value="recipe_seeker">Recipe Seeker</a-radio>
+
+                            </a-radio-group>
+                        </a-form-item>
+
+                        {% for category in categories %}
+                        {{ category }}
+
+                        <a-form-item>
+                            <a-button type="primary" html-type="submit" value="large" size="large"
+                                class="blue-register-button">Submit</a-button>
+                        </a-form-item>
+
+                    </a-form>
+
+
+                </a-space>
+            </a-col>
+            <a-col :span="8"></a-col>
+        </a-row>
+        <a-row></a-row>
+
+
+    </div>
+</template>
+<script>
+import axios from 'axios';
+import router from '../router'
+import store from '../store'
+import { defineComponent, ref } from 'vue';
+export default defineComponent({
     data() {
         return {
-
+            user_role: '',
+            name: '',
+            email: '',
+            password: '',
+            categories: []
         }
+    },
+    setup() {
+
+        return {
+
+        };
+    },
+    created: () => {
+        if (store.getters.user_type != 'chef') {
+            //You can't perform this action
+            router.push('/');
+        }
+
+        axios.get('api/category').then(res => {
+            this.categories = res.data.data.categories
+
+        })
     }
-}
+});
 </script>
