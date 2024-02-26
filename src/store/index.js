@@ -2,7 +2,11 @@
 import axios from 'axios'
 import { createStore } from 'vuex'
 import router from '../router'
+import createPersistedState from "vuex-persistedstate";
+
+
 const store = createStore({
+    plugins: [createPersistedState()],
     state: {
         status: '',
         token: localStorage.getItem('token') || '',

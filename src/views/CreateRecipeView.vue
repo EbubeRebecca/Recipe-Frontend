@@ -30,11 +30,16 @@
                             </select>
                         </a-form-item>
 
+
+
+                        <a-upload v-model:value="fileList" name="avatar" list-type="picture-card" class="avatar-uploader"
+                            :show-upload-list="false" :before-upload="beforeUpload" @change="handleChange"
+                            :customRequest="handleUpload" :capture="environment" accept=".jpg, .jpeg, .png" ref="uploadBtn"
+                            maxCount={5} multiple></a-upload>
                         <a-form-item>
                             <a-button type="primary" html-type="submit" value="large" size="large"
                                 class="blue-register-button">Submit</a-button>
                         </a-form-item>
-
                     </a-form>
 
 
@@ -59,10 +64,11 @@ export default {
             email: '',
             password: '',
             categories: [],
+            fileList: []
 
         }
     },
-
+    methods: {},
     created: function () {
         if (store.getters.user_type != 'chef') {
             //You can't perform this action

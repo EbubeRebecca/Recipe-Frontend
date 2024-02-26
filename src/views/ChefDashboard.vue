@@ -7,7 +7,10 @@
             <p>Chef Dashboard</p>
 
             <h4> Welcome,{{ user.name }} </h4>
-            <router-link :to="{ name: 'createrecipe' }">AddRecipe</router-link>
+
+            <div v-if="isChef">
+                <router-link :to="{ name: 'createrecipe' }">AddRecipe</router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -37,7 +40,11 @@ export default {
         }
         , user() {
             return this.$store.getters.user;
+        },
+        isChef() {
+            return this.$store.getters.user_type == 'chef';
         }
+
     }
 }
 </script>
