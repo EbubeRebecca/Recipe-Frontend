@@ -13,4 +13,22 @@
     }
 }
 </style>
+
+<script>
+import store from '@/store'
+import router from '@/router'
+export default {
+    name: 'AdminLogin',
+    components: {
+
+    },
+    created: function () {
+        if (!store.getters.isAdminLoggedIn) {
+            //You can't perform this action
+            router.push('/admin/login');
+        }
+    }
+}
+
+</script>
   
