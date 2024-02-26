@@ -35,7 +35,7 @@
 
                         <a-form-item>
                             <a-button type="primary" html-type="submit" value="large" size="large"
-                                class="blue-register-button">Register</a-button>
+                                class="blue-register-button" :style="{ backgroundColor: '#ff800b' }">Register</a-button>
                         </a-form-item>
 
                     </a-form>
