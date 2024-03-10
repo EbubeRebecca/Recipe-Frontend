@@ -33,7 +33,7 @@
                 </div>
                 <div class="row recipe-section">
                     <div v-for="recipe in recipes" v-bind:key="recipe.id" class="col-sm-3">
-                        <router-link :to="{ name: 'viewrecipe', params: { id: recipe.slug } }"><a-card hoverable>
+                        <router-link :to="{ name: 'viewrecipe', params: { slug: recipe.slug } }"><a-card hoverable>
                                 <template #cover>
                                     <img alt="example"
                                         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />

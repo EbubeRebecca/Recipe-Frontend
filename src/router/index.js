@@ -53,7 +53,7 @@ const router = createRouter({
             }
         },
         {
-            path: '/recipe/:id',
+            path: '/recipe/:slug',
             name: 'viewrecipe',
             component: () => import('../views/RecipeDetail.vue'),
             meta: {
