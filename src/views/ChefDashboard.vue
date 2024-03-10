@@ -5,13 +5,13 @@
         <div class="container">
 
             <p>Chef Dashboard</p>
+            <div style="display:flex;flex-direction: row;justify-content: space-between;">
+                <h4> Welcome,{{ user.name }} </h4>
 
-            <h4> Welcome,{{ user.name }} </h4>
-
-            <div v-if="isChef">
-                <router-link :to="{ name: 'createrecipe' }">AddRecipe</router-link>
+                <div v-if="isChef">
+                    <router-link :to="{ name: 'createrecipe' }">AddRecipe</router-link>
+                </div>
             </div>
-
 
             <div>
 
@@ -33,28 +33,32 @@
                 </div>
                 <div class="row recipe-section">
                     <div v-for="recipe in recipes" v-bind:key="recipe.id" class="col-sm-3">
-                        <a-card hoverable>
-                            <template #cover>
-                                <img alt="example"
-                                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
-                            </template>
-                            <a-card-meta :title=recipe.title :description=recipe.location>
-                                <template #avatar>
-                                    <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                        <router-link :to="{ name: 'viewrecipe', params: { id: recipe.slug } }"><a-card hoverable>
+                                <template #cover>
+                                    <img alt="example"
+                                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
                                 </template>
-                            </a-card-meta>
-                            <a-card-meta :description=recipe.user.name>
+                                <a-card-meta :title=recipe.title :description=recipe.location>
+                                    <template #avatar>
+                                        <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                    </template>
+                                </a-card-meta>
+                                <a-card-meta :description=recipe.user.name>
 
-                            </a-card-meta>
-                        </a-card>
+                                </a-card-meta>
+                            </a-card>
+                        </router-link>
 
 
 
                     </div>
                 </div>
-
-                <a-pagination v-model:current="current_page_number" :total=list_total @change="onChangePagination"
-                    show-less-items />
+                <a-row :align="middle">
+                    <a-col :span="12">
+                        <a-pagination v-model:current="current_page_number" :total=list_total @change="onChangePagination"
+                            show-less-items />
+                    </a-col>
+                </a-row>
                 <div>
 
                 </div>

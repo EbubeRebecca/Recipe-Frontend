@@ -2,6 +2,7 @@
     <div class="register">
 
 
+        <LoggedInHeader />
         <a-row>
             <a-col :span="8"></a-col>
             <a-col :span="8">
@@ -56,7 +57,12 @@
 import axios from 'axios';
 import router from '../router'
 import store from '../store'
+
+import LoggedInHeader from "../components/LoggedInHeader.vue";
 export default {
+    components: {
+        LoggedInHeader
+    },
     data() {
         return {
             user_role: '',
