@@ -11,7 +11,7 @@ const router = createRouter({
             meta: {
                 has_header: false,
                 requiresAuth: false,
-                title: 'Homepage'
+                title: 'RecipeHub: Share recipes'
             }
         },
         {
