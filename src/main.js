@@ -5,7 +5,7 @@ import store from './store'
 import "ant-design-vue/dist/reset.css";
 import App from './App.vue'
 import { DatePicker } from 'ant-design-vue';
-import { Select, ConfigProvider, Button, Tag, Menu, Dropdown, Avatar, Spin, Result, Space, Form, Tabs, Input, Checkbox, Row, Col, Modal, Alert, Divider, Upload, PageHeader, Progress, Radio, RadioGroup } from 'ant-design-vue';
+import { Select, ConfigProvider, Button, Tag, Menu, Dropdown, Avatar, Spin, Result, Space, Form, Tabs, Input, Checkbox, Row, Col, Modal, Alert, Divider, Upload, PageHeader, Progress, Radio, RadioGroup, Card } from 'ant-design-vue';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import axios from 'axios'
@@ -16,13 +16,14 @@ import "bootstrap";
 
 
 
+
+
 const app = createApp(App)
 app.config.devtools = true
 app.use(router)
 app.use(store)
 app.use(VueSweetalert2);
 app.use(DatePicker);
-
 
 
 
@@ -55,6 +56,7 @@ app.use(PageHeader)
 app.use(Progress)
 app.use(Radio)
 app.use(RadioGroup)
+app.use(Card)
 
 
 /*
