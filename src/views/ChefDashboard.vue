@@ -16,7 +16,21 @@
             <div>
 
                 <h3>View Recipes</h3>
-
+                <div class="row">
+                    <h6>Filter</h6>
+                    <div class="filter-field">
+                        <a-input placeholder="Search recipes" style="width: 120px" />
+                        <a-select style="width: 120px">
+                            <a-select-option value="london">london</a-select-option>
+                            <a-select-option value="aberdeen">aberdeen</a-select-option>
+                        </a-select>
+                        <a-select style="width: 120px">
+                            <a-select-option value="continental">continental</a-select-option>
+                            <a-select-option value="welsh">welsh</a-select-option>
+                        </a-select>
+                        <a-button>Filter</a-button>
+                    </div>
+                </div>
                 <div class="row recipe-section">
                     <div v-for="recipe in recipes" v-bind:key="recipe.id" class="col-sm-3">
                         <a-card hoverable>
@@ -39,6 +53,12 @@
                     </div>
                 </div>
 
+                <a-pagination v-model:current="current_page_number" :total=list_total @change="onChangePagination"
+                    show-less-items />
+                <div>
+
+                </div>
+
             </div>
 
 
@@ -59,6 +79,9 @@ export default {
     },
     data() {
         return {
+            current_page_number: 1,
+            list_total: 0,
+            links: [],
             recipes: []
         }
 
@@ -69,6 +92,22 @@ export default {
                 .then(() => {
                     this.$router.push('/login')
                 })
+        },
+        onChangePagination: function (page) {
+            let url = this.links[page].url;
+
+            let that = this;
+            const token = localStorage.getItem('token');
+            axios.get(url, {
+                headers: { Authorization: `Bearer ${token}` }
+            }).then(res => {
+                if (res.data.success) {
+                    that.recipes = res.data.data.data;
+
+                }
+
+            })
+
         },
     },
     computed: {
@@ -91,6 +130,10 @@ export default {
         }).then(res => {
             if (res.data.success) {
                 that.recipes = res.data.data.data;
+
+                that.list_total = res.data.data.total;
+                that.links = res.data.data.links;
+
             }
 
         })
@@ -103,5 +146,9 @@ export default {
 <style>
 .recipe-section div {
     margin-bottom: 15px;
+}
+
+.filter-field {
+    margin-bottom: 10px;
 }
 </style>

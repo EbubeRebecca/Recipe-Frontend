@@ -4,7 +4,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <RouterView />
+    <transition name="fade">
+        <RouterView />
+    </transition>
 </template>
 
 <script>

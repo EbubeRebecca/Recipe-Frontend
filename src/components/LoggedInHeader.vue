@@ -8,6 +8,9 @@
 
             <ul class="nav">
                 <li class="nav-item home-nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+                <li class="nav-item home-nav-item"><a href="#" class="nav-link active" aria-current="page">My Recipes</a>
+                </li>
+
                 <li class="nav-item home-nav-item"> <a v-on:click="logout" class="nav-link">Logout</a></li>
 
 
