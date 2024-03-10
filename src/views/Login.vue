@@ -9,7 +9,7 @@
 
                 </a>
 
-                <ul class="nav ">
+                <ul class="nav">
                     <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
                     <li class="nav-item"> <router-link to="login" class="nav-link">Login</router-link></li>
                     <li class="nav-item"> <router-link to="register" class="nav-link">Register</router-link></li>
@@ -104,4 +104,11 @@ export default {
     }
 }
 </script>
-  
+
+
+<style scoped>
+.nav-item a {
+    text-decoration: none;
+    color: #898986 !important;
+}
+</style>

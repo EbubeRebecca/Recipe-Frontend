@@ -121,3 +121,11 @@ export default defineComponent({
     }
 });
 </script>
+
+
+<style scoped>
+.nav-item a {
+    text-decoration: none;
+    color: #898986 !important;
+}
+</style>
