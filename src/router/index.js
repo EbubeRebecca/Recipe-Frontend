@@ -75,6 +75,18 @@ const router = createRouter({
             }
 
         },
+
+        {
+            path: '/profile',
+            name: 'profile',
+            component: () => import('../views/MyRecipes.vue'),
+            meta: {
+                has_header: true,
+                requiresAuth: true,
+                title: 'My Recipes'
+            }
+
+        },
     ]
 })
 
