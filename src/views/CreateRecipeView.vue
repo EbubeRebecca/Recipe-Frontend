@@ -17,14 +17,15 @@
                         </a-form-item>
 
 
-                        <a-form-item ref="name" label="Location" name="name">
-                            <a-input placeholder="Location" size="large" v-model:value="location" />
-                        </a-form-item>
-
+                    
 
                         <a-form-item ref="name" label="Description" name="description">
                             <a-textarea v-model:value="description" placeholder="Recipe description"
                                 :auto-size="{ minRows: 4, maxRows: 6 }" /> </a-form-item>
+
+                                <a-form-item ref="name" label="Location" name="name">
+                            <a-input placeholder="Location" size="large" v-model:value="location" />
+                        </a-form-item>
 
 
                         <a-form-item ref="name" label="Category" name="Category">
@@ -41,7 +42,8 @@
 
 
                         <p>Image upload</p>
-                        <a-upload v-model:value="fileList" name="avatar" list-type="picture-card" class="avatar-uploader"
+                        <a-upload v-model:file-list="fileList" name="avatar" list-type="picture-card" class="avatar-uploader"
+                        :multiple="true" 
                             :show-upload-list="false" :before-upload="beforeUpload" @change="handleChange"
                             :customRequest="handleUpload" :capture="environment" accept=".jpg, .jpeg, .png" ref="uploadBtn"
                             maxCount={5} multiple></a-upload>
@@ -49,15 +51,22 @@
 
                         <p>Video upload</p>
                         <a-upload v-model:file-list="videofile" name="file"
-                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76" :headers="headers">
+                          >
                             <a-button>
                                 <upload-outlined></upload-outlined>
                                 Click to Upload
                             </a-button>
-                        </a-upload>
+                        </a-upload><p>Images</p>
+
+                        <input type="file" ref="images" multiple="multiple"   @change="handleFileUpload">
+<p>Video</p>
+                        <input type="file" ref="video" >
                         <a-form-item>
-                            <a-button type="primary" html-type="submit" value="large" size="large"
-                                class="blue-register-button">Submit</a-button>
+                          
+
+                        <router-link :to="{ name: 'createrecipe' }"><a-button type="primary" html-type="submit" value="large"
+                            size="large" class="blue-register-button small-space" :style="{ backgroundColor: '#ff800b' }">Submit</a-button></router-link>
+
                         </a-form-item>
 
                     </a-form>
@@ -88,12 +97,43 @@ export default {
             description: '',
             categories: [],
             fileList: [],
+            imageFiles:[],
             videofile: [],
-            location: ''
+            location: '',
+            category_id:''
 
         }
     },
-    methods: {},
+    methods: {
+        handleFileUpload(event) {
+      const files = event.target.files;
+      this.imageFiles = Array.from(files);
+    },
+        submit: function(){
+         const formData = new FormData();
+      this.imageFiles.forEach(file => {
+        formData.append('images[]', file);
+      });
+      formData.append('video',videofile);
+      formData.append('title',title);
+      formData.append('body',description);
+
+      formData.append('category_id',description);
+
+      formData.append('location',description);
+
+
+axios.post('/fileupload', formData, {
+    headers: {
+        'Content-Type': 'multipart/form-data'
+    },
+  }
+).then(function(){
+})
+.catch(function(){
+});
+        }
+    },
     created: function () {
         if (store.getters.user_type != 'chef') {
             //You can't perform this action
@@ -109,3 +149,8 @@ export default {
     }
 }
 </script>
+
+<style>
+.small-space{
+    margin-top:20px;
+}</style>

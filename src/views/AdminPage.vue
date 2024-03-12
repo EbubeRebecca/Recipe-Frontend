@@ -7,7 +7,10 @@
         <p>Recipes {{ recipe_count }}</p>
 
         <p>Chef {{ chef_count }}</p>
-    </div>
+
+<h3>Manage</h3>
+<router-link to="/admin/recipes">Recipes</router-link>
+</div>
 </template>
   
 <style>

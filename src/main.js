@@ -5,7 +5,7 @@ import store from './store'
 import "ant-design-vue/dist/reset.css";
 import App from './App.vue'
 import { DatePicker } from 'ant-design-vue';
-import { Select, ConfigProvider, Button, Tag, Menu, Dropdown, Avatar, Spin, Result, Space, Form, Tabs, Input, Checkbox, Row, Col, Modal, Alert, Divider, Upload, PageHeader, Progress, Radio, RadioGroup, Card, Pagination } from 'ant-design-vue';
+import { Select, ConfigProvider, Button, Tag, Menu, Dropdown, Avatar, Spin, Result, Space, Form, Tabs, Input, Checkbox, Row, Col, Modal, Alert, Divider, Upload, PageHeader, Progress, Radio, RadioGroup, Card, Pagination, Table } from 'ant-design-vue';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import axios from 'axios'
@@ -58,7 +58,7 @@ app.use(Radio)
 app.use(RadioGroup)
 app.use(Card)
 app.use(Pagination)
-
+app.use(Table)
 
 /*
 axios.interceptors.request.use(

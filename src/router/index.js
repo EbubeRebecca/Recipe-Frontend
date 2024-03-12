@@ -32,6 +32,17 @@ const router = createRouter({
             name: 'admin',
             component: () => import('../views/AdminPage.vue')
         },
+
+        {
+            path: '/admin/recipes',
+            name: 'admin_recipes',
+            component: () => import('../views/admin/AdminRecipeListPage.vue'),
+            meta: {
+                has_header: false,
+                title: 'Admin Recipes'
+            }
+
+        },
         {
             path: '/login',
             name: 'login',
@@ -81,12 +92,15 @@ const router = createRouter({
             name: 'profile',
             component: () => import('../views/MyRecipes.vue'),
             meta: {
-                has_header: true,
+                has_header: false,
                 requiresAuth: true,
                 title: 'My Recipes'
             }
 
         },
+
+
+
     ]
 })
 
