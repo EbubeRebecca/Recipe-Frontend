@@ -1,5 +1,5 @@
 <template>
-    <div class="admin">
+    <div class="admin container">
         <h1>Admin</h1>
 
         <p>Recipe Seeker {{ recipe_seeker_count }}</p>
@@ -8,7 +8,15 @@
 
         <p>Chef {{ chef_count }}</p>
 
-        <a-table :columns="columns" :data-source="recipes"  :pagination="paginationConfig" @change="handlePageChange" >
+<a-table  :customRow="customR" :columns="columns" :data-source="recipes"  :pagination="paginationConfig" @change="handlePageChange" >
+        
+    <template #custom-row="record" @click="handleRowClick(record)">
+      <tr>
+        <td>{{ record.title }}</td>
+        <td>{{ record.location }}</td>
+        <!-- Add more columns as needed -->
+      </tr>
+    </template>
         </a-table>
       
     </div>
@@ -54,6 +62,7 @@ export default {
                 showSizeChanger: false
             },
            
+           
             'columns': [
   {
     title:'Title',
@@ -70,7 +79,7 @@ export default {
   },
 
   {
-    title: 'User',
+    title: 'Recipe name',
     dataIndex: ['user','name'],
     key: 'User'
  
@@ -120,6 +129,19 @@ axios.get('/api/recipe/', {
 
 
     },methods:{
+        customR:(record) => {
+    return {
+      
+      onClick: (event) => {
+        alert(record);
+      },       // click row
+     
+    };
+  },
+        handleRowClick:function(record){
+            alert(record);
+            router.push('/next-page');
+        },
         handlePageChange: function (page) {
             console.log(page);
             let url = this.links[page.current].url;

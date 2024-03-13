@@ -4,10 +4,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <transition name="fade">
+   
         <RouterView />
-    </transition>
-</template>
+   </template>
 
 <script>
 import Header from "./components/Header.vue";

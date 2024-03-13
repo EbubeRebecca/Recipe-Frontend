@@ -43,6 +43,17 @@ const router = createRouter({
             }
 
         },
+
+        {
+            path: '/admin/recipe/:slug',
+            name: 'admin_recipe_detail',
+            component: () => import('../views/admin/AdminRecipeDetailsPage.vue'),
+            meta: {
+                has_header: false,
+                title: 'Admin Recipes'
+            }
+
+        },
         {
             path: '/login',
             name: 'login',

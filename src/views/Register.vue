@@ -89,6 +89,7 @@ export default defineComponent({
     },
     methods: {
         handleSubmit(e) {
+            let that=this;
             e.preventDefault()
 
 
@@ -99,7 +100,19 @@ export default defineComponent({
                 let formData = { email: this.email, password: this.password, password_confirmation: this.password, user_type: this.user_role, name: this.name };
 
                 this.$store.dispatch('register', formData)
-                    .then(() => router.push('/login'))
+                    .then(()=> {
+                    
+                    this.$swal({
+        title: 'Account creation',
+        text: 'Account created successfully',
+        icon: 'info',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-button-class' 
+        }
+      });
+                    that.$router.push({ name: 'login'});
+    })
                     .catch(() => {
                         this.errors.push("An error occured during registration"); this.processing = false;
                         this.submitted = false;
@@ -127,5 +140,9 @@ export default defineComponent({
 .nav-item a {
     text-decoration: none;
     color: #898986 !important;
+}
+
+.custom-button-class{
+    background-color: #ff800b;
 }
 </style>

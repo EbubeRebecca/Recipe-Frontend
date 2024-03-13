@@ -41,22 +41,7 @@
                         </a-form-item>
 
 
-                        <p>Image upload</p>
-                        <a-upload v-model:file-list="fileList" name="avatar" list-type="picture-card" class="avatar-uploader"
-                        :multiple="true" 
-                            :show-upload-list="false" :before-upload="beforeUpload" @change="handleChange"
-                            :customRequest="handleUpload" :capture="environment" accept=".jpg, .jpeg, .png" ref="uploadBtn"
-                            maxCount={5} multiple></a-upload>
-
-
-                        <p>Video upload</p>
-                        <a-upload v-model:file-list="videofile" name="file"
-                          >
-                            <a-button>
-                                <upload-outlined></upload-outlined>
-                                Click to Upload
-                            </a-button>
-                        </a-upload><p>Images</p>
+                        <p>Images</p>
 
                         <input type="file" ref="images" multiple="multiple"   @change="handleFileUpload">
 <p>Video</p>
@@ -100,7 +85,8 @@ export default {
             imageFiles:[],
             videofile: [],
             location: '',
-            category_id:''
+            category_id:'',
+            errors:[]
 
         }
     },
@@ -118,9 +104,9 @@ export default {
       formData.append('title',title);
       formData.append('body',description);
 
-      formData.append('category_id',description);
+      formData.append('category_id',category_id);
 
-      formData.append('location',description);
+      formData.append('location',location);
 
 
 axios.post('/fileupload', formData, {
@@ -128,10 +114,16 @@ axios.post('/fileupload', formData, {
         'Content-Type': 'multipart/form-data'
     },
   }
-).then(function(){
-})
-.catch(function(){
-});
+).then(res => {
+    if (res.data.success){
+        alert('Recipe created successfully');
+    }
+}).catch(err => {
+            this.errors.push(err);
+
+            console.log(err.request)
+
+        });
         }
     },
     created: function () {

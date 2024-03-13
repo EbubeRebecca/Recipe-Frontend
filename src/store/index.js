@@ -64,16 +64,6 @@ const store = createStore({
                 commit('auth_request')
                 axios({ url: '/api/auth/register', data: user_, method: 'POST' })
                     .then(resp => {
-                        // const user = JSON.parse(JSON.stringify(resp.data.user))
-
-                        //const token = resp.data.access_token
-
-                        //localStorage.setItem('token', token)
-                        //localStorage.setItem('user', user)
-
-                        //axios.defaults.headers.common['Authorization'] = token
-                        //token
-                        //commit('auth_success', token, user)
 
                         resolve(resp)
                     })
