@@ -13,7 +13,7 @@
 
 
                         <a-form-item ref="name" label="Title" name="name">
-                            <a-input placeholder="Recipe name" size="large" v-model:value="name" />
+                            <a-input placeholder="Recipe name" size="large" v-model:value="title" />
                         </a-form-item>
 
 
@@ -43,14 +43,13 @@
 
                         <p>Images</p>
 
-                        <input type="file" ref="images" multiple="multiple"   @change="handleFileUpload">
+                        <input type="file"  multiple="multiple"   @change="handleFileUpload">
 <p>Video</p>
-                        <input type="file" ref="video" >
+                        <input type="file"   @change="handleVideoUpload">
                         <a-form-item>
                           
-
-                        <router-link :to="{ name: 'createrecipe' }"><a-button type="primary" html-type="submit" value="large"
-                            size="large" class="blue-register-button small-space" :style="{ backgroundColor: '#ff800b' }">Submit</a-button></router-link>
+<a-button type="primary" html-type="submit" value="large"
+                            size="large" class="blue-register-button small-space" :style="{ backgroundColor: '#ff800b' }" @click="handleSubmit">Submit</a-button>
 
                         </a-form-item>
 
@@ -83,7 +82,7 @@ export default {
             categories: [],
             fileList: [],
             imageFiles:[],
-            videofile: [],
+            videofile: '',
             location: '',
             category_id:'',
             errors:[]
@@ -95,23 +94,28 @@ export default {
       const files = event.target.files;
       this.imageFiles = Array.from(files);
     },
-        submit: function(){
+    handleVideoUpload(event) {
+    
+      this.videofile =  event.target.files[0];
+    },
+        handleSubmit: function(){
          const formData = new FormData();
       this.imageFiles.forEach(file => {
         formData.append('images[]', file);
       });
-      formData.append('video',videofile);
-      formData.append('title',title);
-      formData.append('body',description);
+      formData.append('video',this.videofile);
+      formData.append('title',this.title);
+      formData.append('body',this.description);
 
-      formData.append('category_id',category_id);
+      formData.append('category_id',this.category_id);
 
-      formData.append('location',location);
+      formData.append('location',this.location);
 
-
-axios.post('/fileupload', formData, {
+      const token = localStorage.getItem('token');
+           
+axios.post('/api/recipe/', formData, {
     headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data','Authorization': `Bearer ${token}`
     },
   }
 ).then(res => {

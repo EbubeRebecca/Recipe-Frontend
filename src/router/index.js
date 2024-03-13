@@ -75,7 +75,7 @@ const router = createRouter({
             }
         },
         {
-            path: '/recipe/:slug',
+            path: '/recipe/:slug/',
             name: 'viewrecipe',
             component: () => import('../views/RecipeDetail.vue'),
             meta: {

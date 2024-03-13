@@ -4,61 +4,70 @@
         <LoggedInHeader />
         <div class="container">
 
-            <div style="display:flex;flex-direction: row;justify-content: space-between;">
+            <div style="display:flex;flex-direction: row;justify-content: space-between;" >
                 <h4> Welcome,{{ user.name }} </h4>
 
                 <div v-if="isChef">
                     <router-link :to="{ name: 'createrecipe' }"><a-button type="primary" html-type="submit" value="large"
-                            size="large" class="blue-register-button" :style="{ backgroundColor: '#ff800b' }">Add New
+                            size="large" class="blue-register-button" :style="{ backgroundColor: '#ff800b' }">New
                             Recipe</a-button></router-link>
                 </div>
             </div>
 
             <div>
 
-                <h3>View Recipes</h3>
+                <h3>Explore Recipes</h3>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col-xs-12">
                         <h6>Search</h6>
                         <div class="filter-field">
                             <a-input placeholder="Search recipes" v-model:value="search_query"
-                                style="width: 300px; margin-right:10px" />
+                                style="width: 40%; margin-right:10px" />
 
                             <a-button @click="searchRecipe">Search</a-button>
 
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 ">
                         <h6>Filter</h6>
-                        Category:
+                        <div class="row filter-row">
+                        <div class="col-sm-4  col-xs-12">Category:
+                        
                         <a-select style="width: 120px" v-model:value="category_id" @change="filterRecipe">
 
                             <a-select-option v-for="category in categories" :value=category.id>{{ category.title
                             }}</a-select-option>
 
                         </a-select>
+                        </div>
+                        <div class="col-sm-4 col-xs-12" >
                         Location: <a-select style="width: 120px" v-model:value="location" @change="filterRecipe">
                             <a-select-option v-for="location in locations" :value=location.location>{{ location.location
                             }}</a-select-option>
 
                         </a-select>
+                      
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
                         <span v-show="filtered" @click="clearFilter"><a-button>clear filter</a-button></span>
+                    </div>
+                </div>
                     </div>
                 </div>
                 <div v-if="recipes">
                     <div class="row recipe-section">
                         <div v-for="recipe in recipes" v-bind:key="recipe.id" class="col-sm-3">
-                            <router-link :to="{ name: 'viewrecipe', params: { slug: recipe.slug } }"><a-card hoverable>
+                            <router-link :to="{ name: 'viewrecipe', params: { slug: recipe.slug } }">
+                                <a-card hoverable>
                                     <template #cover>
-                                        <img alt="example"
-                                            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+                                        <div style=" overflow: hidden; max-height: 200px;">
+                                        <img :alt=recipe.title
+                                        style=" width: 100%; height: auto; object-fit: contain; "
+                                        :src=recipe.images[0].full_path  />
+                                    </div>
                                     </template>
                                     <a-card-meta :title=recipe.title :description=recipe.location>
-                                        <template #avatar>
-                                            <a-avatar
-                                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                        </template>
-                                    </a-card-meta>
+                                             </a-card-meta>
                                 </a-card>
                             </router-link>
 
@@ -242,6 +251,9 @@ export default {
 }
 
 .filter-field {
+    margin-bottom: 10px;
+}
+.filter-row div{
     margin-bottom: 10px;
 }
 </style>

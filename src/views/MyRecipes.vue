@@ -18,17 +18,17 @@
                 <div v-if="recipes">
                     <div class="row recipe-section">
                         <div v-for="recipe in recipes" v-bind:key="recipe.id" class="col-sm-3">
-                            <router-link :to="{ name: 'viewrecipe', params: { slug: recipe.slug } }"><a-card hoverable>
+                            <router-link :to="{ name: 'viewrecipe', params: { slug: recipe.slug } }">
+                                <a-card hoverable>
                                     <template #cover>
-                                        <img alt="example"
-                                            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+                                        <div style=" overflow: hidden; max-height: 200px;">
+                                        <img :alt=recipe.title
+                                        style=" width: 100%; height: auto; object-fit: contain; "
+                                        :src=recipe.images[0].full_path  />
+                                    </div>
                                     </template>
                                     <a-card-meta :title=recipe.title :description=recipe.location>
-                                        <template #avatar>
-                                            <a-avatar
-                                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                        </template>
-                                    </a-card-meta>
+                                           </a-card-meta>
                                 </a-card>
                             </router-link>
 

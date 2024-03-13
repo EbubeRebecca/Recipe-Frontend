@@ -2,12 +2,16 @@
     <div>
 
         <LoggedInHeader />
-        <div class="container">
-            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+        <div class="container" v-if="recipe">
+            <img :alt=recipe.title :src=recipe.images[0].url />
 
             <p>{{ recipe.user.name }}</p>
             <p>{{ recipe.title }}</p>
             <p>{{ recipe.description }}</p>
+
+            <img :alt=recipe.title
+                                        style=" width: 100%; height: auto; object-fit: contain; "
+                                        :src=recipe.images[0].full_path />
         </div>
     </div>
 </template>
@@ -44,7 +48,7 @@ export default {
         }).catch(err => {
             this.errors.push(err);
 
-            console.log(err.request)
+            
 
         })
     },
