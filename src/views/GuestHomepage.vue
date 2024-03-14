@@ -1,31 +1,13 @@
 <template>
-    <div class=" homepage-wrapper">
+    <div class="homepage-wrapper ">
         <div class="container">
-            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 ">
-                <a href="/"
-                    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-
-                    <span class="fs-4"> <img src="/recipe-hub-logo.png" width="100"></span>
-                </a>
-
-                <ul class="nav">
-                    <li class="nav-item home-nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-                    <li class="nav-item home-nav-item"> <router-link to="login" class="nav-link">Login</router-link></li>
-                    <li class="nav-item home-nav-item"> <router-link to="register" class="nav-link">Register</router-link>
-                    </li>
-
-                </ul>
-            </header>
-        </div>
+       <Header/>
 
 
-
-
-
-        <div class="vue-container">
-
-            <a-row class="hompage-hero">
-                <a-col :span="12">
+        <div class="container">
+<div class="row hompage-hero">
+    
+                <div class="col-sm-6 col-xs-12">
                     <div>
                         <h2 class="homepage-h2">Share</h2>
                         <h2 class="homepage-h2 "><span class="root-orange">Recipes</span> with</h2>
@@ -38,13 +20,38 @@
                                 :style="{ backgroundColor: '#ff800b' }">Register</a-button></router-link>
 
                     </div>
-                </a-col>
-                <a-col :span="12">
+                </div>
+                <div class="col-sm-6 col-xs-12">
 
-                    <img src="/img/valencia.png" width="500"></a-col>
-            </a-row>
-
-
-        </div>
-    </div>
+                    <img src="/img/valencia.png" width="100%" style="object-fit: contain;">
+            <div>
+</div>
+        </div></div>
+    </div></div></div>
 </template>
+
+<script>
+
+import Header from "../components/Header.vue";
+
+export default {
+    name: 'GuestHomepage',
+    components: {
+        Header,
+    },
+    methods: {
+        logout: function () {
+            this.$store.dispatch('logout')
+                .then(() => {
+                    this.$router.push('/login')
+                })
+        },
+    },
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn;
+        }
+    }
+}
+
+</script>

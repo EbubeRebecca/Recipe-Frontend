@@ -11,7 +11,7 @@ html {
     color: #233506;
     font-family: Epilogue, sans-serif;
     font-weight: bold;
-    font-size: 50px;
+    font-size: 40px;
     padding: 0px;
     margin-bottom: 0px;
 
@@ -34,13 +34,6 @@ html {
 }
 
 
-.vue-container {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    padding-right: 15px;
-    padding-left: 15px
-}
 
 /*Custom css for vue sweet alert button*/
 .custom-button-class {
@@ -86,6 +79,7 @@ html {
         width: 720px;
         max-width: 100%
     }
+
 }
 
 @media (min-width: 992px) {

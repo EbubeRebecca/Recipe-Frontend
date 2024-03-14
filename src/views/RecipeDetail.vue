@@ -3,15 +3,15 @@
 
         <LoggedInHeader />
         <div class="container" v-if="recipe">
-            <img :alt=recipe.title :src=recipe.images[0].url />
+            <img :alt=recipe.title :src=recipe.images[0].full_path height="300"/>
+            <p class="username"> Posted by {{ recipe.user.name }}</p>
+            <p>{{ recipe.location }}</p>
+         
+            <h3>{{ recipe.title }}</h3>
+            <p>{{ recipe.body }}</p>
+          
 
-            <p>{{ recipe.user.name }}</p>
-            <p>{{ recipe.title }}</p>
-            <p>{{ recipe.description }}</p>
-
-            <img :alt=recipe.title
-                                        style=" width: 100%; height: auto; object-fit: contain; "
-                                        :src=recipe.images[0].full_path />
+            
         </div>
     </div>
 </template>
@@ -54,3 +54,7 @@ export default {
     },
 }
 </script>
+<style scoped>
+.username{
+    font-size:small;
+}</style>
