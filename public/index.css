@@ -33,6 +33,10 @@ html {
     color: #ff800b;
 }
 
+.recipe-section a {
+    text-decoration: none !important;
+}
+
 
 
 /*Custom css for vue sweet alert button*/

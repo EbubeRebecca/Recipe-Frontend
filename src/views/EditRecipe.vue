@@ -1,8 +1,18 @@
 <template>
-    <div class="register">
-
+    <div>
 
         <LoggedInHeader />
+        <div class="container" v-if="recipe">
+            <img :alt=recipe.title :src=recipe.images[0].full_path height="300"/>
+            <p class="username"> Posted by {{ recipe.user.name }}</p>
+            <p>{{ recipe.location }}</p>
+         
+            <h3>{{ recipe.title }}</h3>
+            <p>{{ recipe.body }}</p>
+          
+
+            
+        </div>
         <a-row>
             <a-col :span="8"></a-col>
             <a-col :span="8">
@@ -26,81 +36,41 @@
                                 <a-form-item ref="name" label="Location" name="name">
                             <a-input placeholder="Location" size="large" v-model:value="location" />
                         </a-form-item>
-
-
-                        <a-form-item ref="name" label="Category" name="Category">
-
-                            <a-select style="width: 120px" v-model:value="category_id" @change="filterRecipe">
-
-                                <a-select-option v-for="category in categories" :value=category.id>{{ category.title
-                                }}</a-select-option>
-
-                            </a-select>
-
-
-                        </a-form-item>
-
-
-                        <p>Images</p>
-
-                        <input type="file"  multiple="multiple"   @change="handleFileUpload">
-<p>Video</p>
-                        <input type="file"   @change="handleVideoUpload">
                         <a-form-item>
-                          
-<a-button type="primary" html-type="submit" value="large"
+                     
+                        <a-button type="primary" html-type="submit" value="large"
                             size="large" class="blue-register-button small-space" :style="{ backgroundColor: '#ff800b' }" @click="handleSubmit">Submit</a-button>
 
                         </a-form-item>
 
-                    </a-form>
+                    </a-form></a-space>
 
-
-                </a-space>
-            </a-col>
+                </a-col>
             <a-col :span="8"></a-col>
         </a-row>
-        <a-row></a-row>
-
-
     </div>
 </template>
+
 <script>
-import axios from 'axios';
-import router from '../router'
-import store from '../store'
+import axios from 'axios'
 
 import LoggedInHeader from "../components/LoggedInHeader.vue";
 export default {
+    name: 'SingleRecipe',
     components: {
         LoggedInHeader
     },
     data() {
         return {
-            title: '',
+            recipe: '',
+            title:'',
             description: '',
-            categories: [],
-            fileList: [],
-            imageFiles:[],
-            videofile: '',
-            location: '',
-            category_id:'',
-            errors:[]
-
+            errors: [],
+            categories:[]
         }
     },
     methods: {
-        handleFileUpload(event) {
-            let that = this;
-      const files = event.target.files;
-      this.imageFiles = Array.from(files);
-    },
-    handleVideoUpload(event) {
-    
-      this.videofile =  event.target.files[0];
-    },
         handleSubmit: function(){
-            let that=this;
          const formData = new FormData();
       this.imageFiles.forEach(file => {
         formData.append('images[]', file);
@@ -122,19 +92,8 @@ axios.post('/api/recipe/', formData, {
   }
 ).then(res => {
     if (res.data.success){
-       
-        that.$swal({
-        title: 'New recipe',
-        text: 'Recipe created successfully',
-        icon: 'info',
-        confirmButtonText: 'OK',
-        customClass: {
-          confirmButton: 'custom-button-class' 
-        }
-      });
-      that.$router.push('/profile');
+        alert('Recipe created successfully');
     }
-
 }).catch(err => {
             this.errors.push(err);
 
@@ -144,22 +103,39 @@ axios.post('/api/recipe/', formData, {
         }
     },
     created: function () {
+        let that = this;
         if (store.getters.user_type != 'chef') {
             //You can't perform this action
             router.push('/');
-        } let self = this;
+        }
+        const recipe_slug = this.$route.params.slug;
+        let url = '/api/srecipe/' + recipe_slug;
+        const token = localStorage.getItem('token');
+        axios.get(url, {
+            headers: { Authorization: `Bearer ${token}` }
+        }).then(res => {
+            if (res.data.success) {
+                that.recipe = res.data.data;
+            }
+        }).catch(err => {
+            this.errors.push(err);
+
+            
+
+        })
+
+        
 
         axios.get('/api/category').then(res => {
 
 
-            self.categories = res.data.category.data
+            that.categories = res.data.category.data
 
         })
-    }
+    },
 }
 </script>
-
-<style>
-.small-space{
-    margin-top:20px;
+<style scoped>
+.username{
+    font-size:small;
 }</style>

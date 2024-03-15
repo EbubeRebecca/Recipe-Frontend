@@ -9,6 +9,10 @@
          
             <h3>{{ recipe.title }}</h3>
             <p>{{ recipe.body }}</p>
+
+            <video class="video" width="320" height="240" controls>
+      <source :src="recipe.full_video_path" type="video/mp4" >
+    </video>
           
 
             

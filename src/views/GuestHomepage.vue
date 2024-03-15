@@ -27,6 +27,13 @@
             <div>
 </div>
         </div></div>
+
+        <div class="row">
+            <div class="col-sm-3 col-xs-12"></div>
+            <div class="col-sm-3 col-xs-12"></div>
+            <div class="col-sm-3 col-xs-12"></div>
+            
+        </div>
     </div></div></div>
 </template>
 
@@ -39,19 +46,7 @@ export default {
     components: {
         Header,
     },
-    methods: {
-        logout: function () {
-            this.$store.dispatch('logout')
-                .then(() => {
-                    this.$router.push('/login')
-                })
-        },
-    },
-    computed: {
-        isLoggedIn() {
-            return this.$store.getters.isLoggedIn;
-        }
-    }
+  
+    
 }
-
 </script>
