@@ -9,12 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^41.2.0",
+    "@ckeditor/ckeditor5-vue": "^5.1.0",
     "@popperjs/core": "^2.11.8",
     "ant-design-vue": "^4.0.0-rc.6",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
     "vue": "^3.4.20",
+    "vue-dompurify-html": "^5.0.1",
     "vue-router": "^4.2.5",
     "vue-sweetalert2": "^5.0.5",
     "vuex": "^4.0.2",

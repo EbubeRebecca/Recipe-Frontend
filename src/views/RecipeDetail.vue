@@ -1,27 +1,26 @@
 <template>
     <div>
-
         <LoggedInHeader />
         <div class="container" v-if="recipe">
             <img :alt=recipe.title :src=recipe.images[0].full_path height="300"/>
             <p class="username"> Posted by {{ recipe.user.name }}</p>
+           
+            <div v-if="can_edit"><router-link :to="{ name: 'editrecipe', params: { slug: recipe.slug } }"><button>Edit</button></router-link></div>
             <p>{{ recipe.location }}</p>
          
             <h3>{{ recipe.title }}</h3>
-            <p>{{ recipe.body }}</p>
+            <div v-dompurify-html="recipe.body" class="recipe-body"></div>
 
             <video class="video" width="320" height="240" controls>
       <source :src="recipe.full_video_path" type="video/mp4" >
-    </video>
-          
-
-            
+    </video>            
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { ref } from 'vue';
 
 import LoggedInHeader from "../components/LoggedInHeader.vue";
 export default {
@@ -56,9 +55,24 @@ export default {
 
         })
     },
+    computed:{
+        can_edit(){
+            if (this.recipe){
+                return this.recipe.created_by_id==this.$store.getters.user.id
+            }
+            else{
+                return false
+            }
+        }
+    }
 }
 </script>
 <style scoped>
 .username{
     font-size:small;
-}</style>
+}
+.recipe-body img{
+    object-fit: contain;
+    width: 100% !important;
+}
+</style>

@@ -20,8 +20,10 @@
                     
 
                         <a-form-item ref="name" label="Description" name="description">
-                            <a-textarea v-model:value="description" placeholder="Recipe description"
-                                :auto-size="{ minRows: 4, maxRows: 6 }" /> </a-form-item>
+
+                            <ckeditor :editor="editor" v-model="description" :config="editorConfig" @ready="onEditorReady"></ckeditor>
+
+                           </a-form-item>
 
                                 <a-form-item ref="name" label="Location" name="name">
                             <a-input placeholder="Location" size="large" v-model:value="location" />
@@ -39,9 +41,10 @@
 
 
                         </a-form-item>
+                     
+ 
 
-
-                        <p>Images</p>
+                        <p>Header Image</p>
 
                         <input type="file"  multiple="multiple"   @change="handleFileUpload">
 <p>Video</p>
@@ -71,6 +74,7 @@ import router from '../router'
 import store from '../store'
 
 import LoggedInHeader from "../components/LoggedInHeader.vue";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default {
     components: {
         LoggedInHeader
@@ -85,11 +89,21 @@ export default {
             videofile: '',
             location: '',
             category_id:'',
-            errors:[]
+            errors:[],
+            editor: ClassicEditor,
+                editorData: '<p>Content of the editor.</p>',
+                editorConfig: {
+                    // The configuration of the editor.
+                }
 
         }
     },
     methods: {
+        onEditorReady(editor) {
+            //editor.plugins.get('Console').enable();
+      editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new MyUploadAdapter(loader);
+      };},
         handleFileUpload(event) {
             let that = this;
       const files = event.target.files;
@@ -156,6 +170,44 @@ axios.post('/api/recipe/', formData, {
 
         })
     }
+}
+
+class MyUploadAdapter {
+  constructor(loader) {
+    this.loader = loader;
+  }
+
+  upload() {
+    return this.loader.file
+      .then(file => {
+        return new Promise((resolve, reject) => {
+            const token = localStorage.getItem('token');
+          const formData = new FormData();
+          formData.append('image', file);
+
+          axios.post('/api/image/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          .then(response => {
+            console.log(response.data);
+            resolve({
+              default: response.data.url
+            });
+          })
+          .catch(error => {
+            console.log(error);
+            reject(error);
+          });
+        });
+      });
+  }
+
+  abort() {
+    // Abort the upload process if needed
+  }
 }
 </script>
 

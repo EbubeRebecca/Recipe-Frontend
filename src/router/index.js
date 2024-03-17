@@ -85,6 +85,17 @@ const router = createRouter({
             }
 
         },
+        {
+            path: '/recipes/edit/:slug/',
+            name: 'editrecipe',
+            component: () => import('../views/EditRecipe.vue'),
+            meta: {
+                has_header: true,
+                requiresAuth: true,
+                title: 'Edit Recipe'
+            }
+
+        },
 
         {
             path: '/recipes/create',

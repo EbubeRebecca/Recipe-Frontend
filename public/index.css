@@ -37,6 +37,10 @@ html {
     text-decoration: none !important;
 }
 
+/*Hide ck tag*/
+.ck-powered-by {
+    display: none;
+}
 
 
 /*Custom css for vue sweet alert button*/

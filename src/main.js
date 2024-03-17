@@ -13,9 +13,10 @@ import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 
-
+import VueDOMPurifyHTML from 'vue-dompurify-html';
 
 
 const app = createApp(App)
@@ -25,6 +26,9 @@ app.use(store)
 app.use(VueSweetalert2);
 app.use(DatePicker);
 
+app.use(CKEditor);
+
+app.use(VueDOMPurifyHTML);
 
 
 

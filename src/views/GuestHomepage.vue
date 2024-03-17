@@ -1,7 +1,7 @@
 <template>
     <div class="homepage-wrapper ">
         <div class="container">
-       <Header/>
+       <Header></Header>
 
 
         <div class="container">

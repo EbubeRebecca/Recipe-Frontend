@@ -79,7 +79,7 @@ export default {
   },
 
   {
-    title: 'Recipe name',
+    title: 'User',
     dataIndex: ['user','name'],
     key: 'User'
  

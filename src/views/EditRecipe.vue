@@ -13,28 +13,28 @@
 
             
         </div>
-        <a-row>
+        <a-row v-if="recipe">
             <a-col :span="8"></a-col>
             <a-col :span="8">
                 <a-space direction="vertical" style="width: 100%">
 
-                    <h3>Add new recipe</h3>
+                    <h3>Edit recipe</h3>
                     <a-form layout="vertical">
 
 
                         <a-form-item ref="name" label="Title" name="name">
-                            <a-input placeholder="Recipe name" size="large" v-model:value="title" />
+                            <a-input placeholder="Recipe name" size="large" v-model:value="recipe.title" />
                         </a-form-item>
 
 
                     
 
                         <a-form-item ref="name" label="Description" name="description">
-                            <a-textarea v-model:value="description" placeholder="Recipe description"
+                            <a-textarea v-model:value="recipe.body" placeholder="Recipe description"
                                 :auto-size="{ minRows: 4, maxRows: 6 }" /> </a-form-item>
 
                                 <a-form-item ref="name" label="Location" name="name">
-                            <a-input placeholder="Location" size="large" v-model:value="location" />
+                            <a-input placeholder="Location" size="large" v-model:value="recipe.location" />
                         </a-form-item>
                         <a-form-item>
                      
@@ -56,7 +56,7 @@ import axios from 'axios'
 
 import LoggedInHeader from "../components/LoggedInHeader.vue";
 export default {
-    name: 'SingleRecipe',
+    name: 'EditRecipe',
     components: {
         LoggedInHeader
     },
@@ -104,7 +104,7 @@ axios.post('/api/recipe/', formData, {
     },
     created: function () {
         let that = this;
-        if (store.getters.user_type != 'chef') {
+        if (this.$store.getters.user_type != 'chef') {
             //You can't perform this action
             router.push('/');
         }
@@ -115,7 +115,14 @@ axios.post('/api/recipe/', formData, {
             headers: { Authorization: `Bearer ${token}` }
         }).then(res => {
             if (res.data.success) {
-                that.recipe = res.data.data;
+                 //check if recipe is equal to user id
+                if (that.$store.getters.user.id ==res.data.data.created_by_id){
+               
+                that.recipe = res.data.data;}
+                else{
+                    that.errors.push('You are not authorized to perform this action');
+
+                }
             }
         }).catch(err => {
             this.errors.push(err);
