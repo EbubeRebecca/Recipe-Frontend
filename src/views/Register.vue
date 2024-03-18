@@ -9,6 +9,11 @@
                 <a-space direction="vertical" style="width: 100%">
 
                     <h3>Registration Form</h3>
+                    <div v-if="errors">
+                        <div class="alert alert-primary" role="alert" v-for="error in errors" v-bind:key="error.id">
+                            {{ error }}
+                        </div>
+                    </div>
                     <a-form layout="vertical">
 
 
@@ -38,6 +43,8 @@
                             <a-button type="primary" html-type="submit" value="large" size="large"
                                 class="blue-register-button" :style="{ backgroundColor: '#ff800b' }"
                                 v-on:click="handleSubmit">Register</a-button>
+                                <a-spin :indicator="indicator" size="large" :spinning="processing">
+</a-spin>
                         </a-form-item>
 
                     </a-form>
@@ -67,7 +74,8 @@ export default defineComponent({
             name: '',
             email: '',
             password: '',
-            errors: []
+            errors: [],
+            processing:false
         }
     },
     setup() {
@@ -102,7 +110,9 @@ export default defineComponent({
       });
                     that.$router.push({ name: 'login'});
     })
-                    .catch(() => {
+                    .catch((err) => {
+                      //  this.errors.push(Object.values(err.response.data));
+                       // console.log(err)
                         this.errors.push("An error occured during registration"); this.processing = false;
                         this.submitted = false;
                     })
@@ -121,6 +131,7 @@ export default defineComponent({
             return router.push('/');
         }
     }
+   
 });
 </script>
 

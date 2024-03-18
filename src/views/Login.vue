@@ -29,7 +29,10 @@
                             <a-button type="primary" html-type="submit" value="large" size="large"
                                 class="blue-register-button" v-on:click="handleSubmit"
                                 :style="{ backgroundColor: '#ff800b' }">Login</a-button>
-                        </a-form-item>
+                       
+                                <a-spin :indicator="indicator" size="large" :spinning="processing">
+</a-spin>     </a-form-item>
+
                     </a-form>
 
 
