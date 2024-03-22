@@ -46,9 +46,11 @@
 
                         <p>Header Image</p>
 
-                        <input type="file"  multiple="multiple"   @change="handleFileUpload">
+                        <input type="file"  
+                        accept="image/*" @change="handleImageUpload">
 <p>Video</p>
-                        <input type="file"   @change="handleVideoUpload">
+                        <input type="file"   
+                        accept="video/*" @change="handleVideoUpload">
                         <a-form-item>
                           
 <a-button type="primary" html-type="submit" value="large"
@@ -87,6 +89,7 @@ export default {
             categories: [],
             fileList: [],
             imageFiles:[],
+            imagefile:'',
             videofile: '',
             location: '',
             category_id:'',
@@ -110,6 +113,11 @@ export default {
       const files = event.target.files;
       this.imageFiles = Array.from(files);
     },
+
+    handleImageUpload(event) {
+    
+    this.imagefile =  event.target.files[0];
+  },
     handleVideoUpload(event) {
     
       this.videofile =  event.target.files[0];
@@ -117,9 +125,8 @@ export default {
         handleSubmit: function(){
             let that=this;
          const formData = new FormData();
-      this.imageFiles.forEach(file => {
-        formData.append('images[]', file);
-      });
+      
+      formData.append('image',this.imagefile);
       formData.append('video',this.videofile);
       formData.append('title',this.title);
       formData.append('body',this.description);

@@ -2,17 +2,7 @@
     <div>
 
         <LoggedInHeader />
-        <div class="container" v-if="recipe">
-            <img :alt=recipe.title :src=recipe.images[0].full_path height="300"/>
-            <p class="username"> Posted by {{ recipe.user.name }}</p>
-            <p>{{ recipe.location }}</p>
-         
-            <h3>{{ recipe.title }}</h3>
-            <p>{{ recipe.body }}</p>
-          
-
-            
-        </div>
+       
         <a-row v-if="recipe">
             <a-col :span="8"></a-col>
             <a-col :span="8">
@@ -26,17 +16,24 @@
                             <a-input placeholder="Recipe name" size="large" v-model:value="recipe.title" />
                         </a-form-item>
 
+                        <a-form-item ref="name" label="Description" name="description">
 
+<ckeditor :editor="editor" v-model="recipe.body" :config="editorConfig" @ready="onEditorReady"></ckeditor>
+
+</a-form-item>
                     
 
-                        <a-form-item ref="name" label="Description" name="description">
-                            <a-textarea v-model:value="recipe.body" placeholder="Recipe description"
-                                :auto-size="{ minRows: 4, maxRows: 6 }" /> </a-form-item>
+                        
 
                                 <a-form-item ref="name" label="Location" name="name">
                             <a-input placeholder="Location" size="large" v-model:value="recipe.location" />
                         </a-form-item>
                         <a-form-item>
+                            <p>Header Image</p>
+
+<input type="file"  accept="image/*" @change="handleImageUpload">
+<p>Video</p>
+<input type="file" accept="video/*"  @change="handleVideoUpload">
                      
                         <a-button type="primary" html-type="submit" value="large"
                             size="large" class="blue-register-button small-space" :style="{ backgroundColor: '#ff800b' }" @click="handleSubmit">Submit</a-button>
@@ -53,8 +50,9 @@
 
 <script>
 import axios from 'axios'
-
+import MyUploadAdapter from '../utils/ckuploadadapter'
 import LoggedInHeader from "../components/LoggedInHeader.vue";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default {
     name: 'EditRecipe',
     components: {
@@ -62,38 +60,84 @@ export default {
     },
     data() {
         return {
-            recipe: '',
-            title:'',
+            recipe:'',
+            title: '',
             description: '',
-            errors: [],
-            categories:[]
+            categories: [],
+            fileList: [],
+            imagefile:'',
+            videofile: '',
+            location: '',
+            category_id:'',
+            errors:[],
+            editor: ClassicEditor,
+                editorData: '<p>Content of the editor.</p>',
+                editorConfig: {
+                    // The configuration of the editor.
+                },
+                
         }
     },
     methods: {
+        onEditorReady(editor) {
+            //editor.plugins.get('Console').enable();
+      editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new MyUploadAdapter(loader);
+      };},
+        handleFileUpload(event) {
+            let that = this;
+      const files = event.target.files;
+      this.imageFiles = Array.from(files);
+    },
+    handleVideoUpload(event) {
+    
+      this.videofile =  event.target.files[0];
+    },
+    handleImageUpload(event) {
+    
+    this.imagefile =  event.target.files[0];
+  },
         handleSubmit: function(){
+            let that=this;
          const formData = new FormData();
-      this.imageFiles.forEach(file => {
-        formData.append('images[]', file);
-      });
-      formData.append('video',this.videofile);
-      formData.append('title',this.title);
-      formData.append('body',this.description);
+     
 
-      formData.append('category_id',this.category_id);
+      if (this.videofile){
+      formData.append('video',this.videofile);}
 
-      formData.append('location',this.location);
+      if (this.imagefile){
+      formData.append('image',this.imagefile);}
+
+      formData.append('title',this.recipe.title);
+      formData.append('body',this.recipe.body);
+
+      formData.append('category_id',this.recipe.category_id);
+
+      formData.append('location',this.recipe.location);
 
       const token = localStorage.getItem('token');
+      const url = '/api/edit/recipe/'+this.recipe.id+'/';
            
-axios.post('/api/recipe/', formData, {
+axios.post(url, formData, {
     headers: {
         'Content-Type': 'multipart/form-data','Authorization': `Bearer ${token}`
     },
   }
 ).then(res => {
     if (res.data.success){
-        alert('Recipe created successfully');
+       
+        that.$swal({
+        title: 'Recipe updated',
+        text: 'Recipe updated successfully',
+        icon: 'info',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-button-class' 
+        }
+      });
+      that.$router.push('/profile');
     }
+
 }).catch(err => {
             this.errors.push(err);
 
