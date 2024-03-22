@@ -72,6 +72,7 @@
 import axios from 'axios';
 import router from '../router'
 import store from '../store'
+import MyUploadAdapter from '../utils/ckuploadadapter'
 
 import LoggedInHeader from "../components/LoggedInHeader.vue";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -172,43 +173,6 @@ axios.post('/api/recipe/', formData, {
     }
 }
 
-class MyUploadAdapter {
-  constructor(loader) {
-    this.loader = loader;
-  }
-
-  upload() {
-    return this.loader.file
-      .then(file => {
-        return new Promise((resolve, reject) => {
-            const token = localStorage.getItem('token');
-          const formData = new FormData();
-          formData.append('image', file);
-
-          axios.post('/api/image/upload', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              'Authorization': `Bearer ${token}`
-            }
-          })
-          .then(response => {
-            console.log(response.data);
-            resolve({
-              default: response.data.url
-            });
-          })
-          .catch(error => {
-            console.log(error);
-            reject(error);
-          });
-        });
-      });
-  }
-
-  abort() {
-    // Abort the upload process if needed
-  }
-}
 </script>
 
 <style>
