@@ -6,6 +6,8 @@
             <p class="username"> Posted by {{ recipe.user.name }}</p>
            
             <div v-if="can_edit"><router-link :to="{ name: 'editrecipe', params: { slug: recipe.slug } }"><button>Edit</button></router-link></div>
+            <div v-if="can_edit"><button @click="deleteConfirm">Remove</button></div>
+           
             <p>{{ recipe.location }}</p>
          
             <h3>{{ recipe.title }}</h3>
@@ -35,6 +37,55 @@ export default {
         }
     },
     methods: {
+        deleteRecipe(){
+            const self=this;
+            const token = localStorage.getItem('token');
+      const url = '/api/recipe/'+this.recipe.id+'/';
+           
+axios.delete(url, {
+    headers: {
+       'Authorization': `Bearer ${token}`
+    },
+  }
+).then(res => {
+    if (res.data.success){
+       
+        self.$swal({
+        title: 'Recipe deleted successfully',
+        icon: 'info',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-button-class' 
+        }
+      });
+      self.$router.push('/profile');
+    }
+
+}).catch(err => {
+            this.errors.push(err);
+
+            console.log(err)
+
+        });
+        }
+        ,
+        deleteConfirm(){
+            let self=this;
+
+            this.$swal.fire({
+  title: "Confirm delete action.",
+  showCancelButton: true,
+  confirmButtonText: "Delete Recipe",
+  denyButtonText: `Cancel`
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+
+
+    self.deleteRecipe();
+  } 
+});
+        }
 
     },
     created: function () {

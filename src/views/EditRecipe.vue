@@ -75,7 +75,7 @@ export default {
                 editorConfig: {
                     // The configuration of the editor.
                 },
-                
+            
         }
     },
     methods: {
@@ -85,7 +85,7 @@ export default {
         return new MyUploadAdapter(loader);
       };},
         handleFileUpload(event) {
-            let that = this;
+    let that = this;
       const files = event.target.files;
       this.imageFiles = Array.from(files);
     },
